@@ -1,3 +1,8 @@
 *.sqlite3
-.vscode
+.vscode/
 *.pyc
+templates/analysis2.html
+templates/home2.html
+templates/base2.html
+__pycache__/
+migrations/
