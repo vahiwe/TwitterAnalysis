@@ -1,0 +1,269 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <title>{% block title %}Sentiment Analysis{% endblock %}</title>
+    <link href="https://fonts.googleapis.com/css?family=Crimson+Text:400,400i,600|Montserrat:200,300,400"
+        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Peralta" rel="stylesheet">
+
+    <link rel="stylesheet" href="{% static 'assets/css/bootstrap/bootstrap.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/fonts/ionicons/css/ionicons.min.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/tempusdominus-bootstrap-4.min.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/fonts/fontawesome/css/font-awesome.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/app.css' %}">
+
+    <link rel="stylesheet" href="{% static 'assets/css/slick.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/slick-theme.css' %}">
+
+    <link rel="stylesheet" href="{% static 'assets/css/helpers.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/landing-2.css' %}">
+
+    {% block styles %}
+    {% endblock styles %}
+
+</head>
+
+<body data-spy="scroll" data-target="#pb-navbar" data-offset="200">
+
+    <nav class="navbar navbar-expand-lg navbar-dark pb_navbar pb_scrolled-light" id="pb-navbar">
+        <div class="container">
+            <a href="{% url 'home' %}" class="navbar-brand p-2"><i class="fa fa-twitter"></i></a>
+            <button class="navbar-toggler ml-auto" type="button" data-toggle="collapse"
+                data-target="#probootstrap-navbar" aria-controls="probootstrap-navbar" aria-expanded="false"
+                aria-label="Toggle navigation">
+                <span><i class="ion-navicon"></i></span>
+            </button>
+            {% comment %} <div class="collapse navbar-collapse" id="probootstrap-navbar">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item"><a class="nav-link" href="{% url 'home' %}">User Check</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{% url 'analysis' %}">Analysis</a></li>
+                </ul>
+            </div> {% endcomment %}
+        </div>
+    </nav>
+    <!-- END nav -->
+
+
+
+
+    <section
+        class="pb_cover_v3 overflow-hidden cover-bg-indigo cover-bg-opacity text-left pb_gradient_v1 pb_slant-light"
+        id="section-home">
+        <div class="container">
+            <div class="row align-items-center justify-content-center">
+                <div class="col-md-5 relative align-self-center">
+
+                    {% block content %}
+                    {% endblock %}
+
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- END section -->
+
+    {% block rep %}
+    {% endblock rep %}
+
+    <section class="pb_section pb_slant-white" id="section-faq">
+        <div class="container">
+            <div class="row justify-content-center mb-5">
+                <div class="col-md-6 text-center mb-5">
+                    <h5 class="text-uppercase pb_font-15 mb-2 pb_color-dark-opacity-3 pb_letter-spacing-2">
+                        <strong>FAQ</strong></h5>
+                    <h2>Frequently Ask Questions</h2>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md">
+                    <div id="pb_faq" class="pb_accordion" data-children=".item">
+                        <div class="item">
+                            <a data-toggle="collapse" data-parent="#pb_faq" href="#pb_faq1" aria-expanded="false"
+                                aria-controls="pb_faq1" class="pb_font-22 py-4">What is Sentiment Analysis?</a>
+                            <div id="pb_faq1" class="collapse" role="tabpanel">
+                                <div class="py-3">
+                                    <p>Sentiment analysis is a process which extracts information from written texts and
+                                        aims to determine the attitude of an individual.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="item">
+                            <a data-toggle="collapse" data-parent="#pb_faq" href="#pb_faq2" aria-expanded="false"
+                                aria-controls="pb_faq2" class="pb_font-22 py-4">How does it work?</a>
+                            <div id="pb_faq2" class="collapse" role="tabpanel">
+                                <div class="py-3">
+                                    <p>The tweets from the twitter handle inputted are retrieved and passed through an
+                                        algorithm that
+                                        classifies the tweets into sad or happy tweets.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="item">
+                            <a data-toggle="collapse" data-parent="#pb_faq" href="#pb_faq3" aria-expanded="false"
+                                aria-controls="pb_faq3" class="pb_font-22 py-4">How much does it cost?</a>
+                            <div id="pb_faq3" class="collapse" role="tabpanel">
+                                <div class="py-3">
+                                    <p>It's free. It's an open source project.</p>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="pb_section pb_slant-light pb_pb-220" id="section-reviews">
+        <div class="container">
+            <div class="row justify-content-center mb-1">
+                <div class="col-md-6 text-center mb-5">
+                    <h5 class="text-uppercase pb_font-15 mb-2 pb_letter-spacing-2">
+                        <strong>Meet the team</strong></h5>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md">
+                    <div class="pb_slide_testimonial_sync_v1">
+                        <div class="pb_slider_content js-pb_slider_content2">
+                            <div>
+                                <div class="media d-block text-center testimonial_v1 pb_quote_v2">
+                                    <div class="media-body">
+                                        <div class="card">
+                                            <img class="card-img-top" style="height:250px;"
+                                                src="{% static 'assets/images/dev1.jpeg' %}" alt="John">
+                                            <h5>Okoro Eseoghene Anne</h5>
+                                            <p class="title">Python Developer</p>
+                                            <p class="title"><i>Data Scientist</i>
+                                            </p>
+                                            <div style="margin: 24px 0;">
+                                                <a href="https://twitter.com/Anne_O19" title="Twitter"
+                                                    target="_blank"><i class="fa fa-twitter" aria-hidden="true"></i></a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div>
+                                <div class="media d-block text-center testimonial_v1 pb_quote_v2">
+                                    <div class="media-body">
+                                        <div class="card">
+                                            <img class="card-img-top" style="height:250px;"
+                                                src="{% static 'assets/images/dev2.jpeg' %}" alt="John">
+                                            <h5>Babatunde</h5>
+                                            <p class="title">Python Developer</p>
+                                            <p class="title"><i>Data Scientist</i>
+                                            </p>
+                                            <div style="margin: 24px 0;">
+                                                <a href="https://twitter.com/ednutsalako" title="Twitter"
+                                                    target="_blank"><i class="fa fa-twitter" aria-hidden="true"></i></a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div>
+                                <div class="media d-block text-center testimonial_v1 pb_quote_v2">
+                                    <div class="media-body">
+                                        <div class="card">
+                                            <img class="card-img-top" style="height:250px;"
+                                                src="{% static 'assets/images/img.jpg' %}" alt="John">
+                                            <h5>Ahiwe Onyebuchi Valentine</h5>
+                                            <p class="title">FullStack Developer</p>
+                                            <p class="title"><i>Oracle Database Associate, Embedded system enthusiast,
+                                                    Android & Blockchain Developer, Linux advocate & data
+                                                    scientist.</i>
+                                            </p>
+                                            <div style="margin: 24px 0;">
+                                                <a href="https://twitter.com/PROFXELFINITO" title="Twitter"
+                                                    target="_blank"><i class="fa fa-twitter" aria-hidden="true"></i></a>
+                                                <a href="https://www.linkedin.com/in/vahiwe" title="LinkedIn"
+                                                    target="_blank"><i class="fa fa-linkedin"
+                                                        aria-hidden="true"></i></a>
+                                                <a href="https://github.com/vahiwe" title="Github" target="_blank"><i
+                                                        class="fa fa-github" aria-hidden="true"></i></a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6 mx-auto">
+                                <div class="pb_slider_nav js-pb_slider_nav2">
+                                    <div class="author">
+                                        <img class="img-fluid rounded-circle"
+                                            src="{% static 'assets/images/dev1.jpeg'%}" alt="Generic placeholder image">
+                                    </div>
+                                    <div class="author">
+                                        <img class="img-fluid rounded-circle"
+                                            src="{% static 'assets/images/dev2.jpeg'%}" alt="Generic placeholder image">
+                                    </div>
+                                    <div class="author">
+                                        <img class="img-fluid rounded-circle" src="{% static 'assets/images/dev3.jpg'%}"
+                                            alt="Generic placeholder image">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <!-- END sync_v1 -->
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- END section -->
+
+
+    <footer class="pb_footer bg-light" role="contentinfo">
+        <div class="container">
+            <div class="row text-center">
+                <div class="col">
+                    <ul class="list-inline">
+                        <li class="list-inline-item"><a href="#" class="p-2"><i class="fa fa-facebook"></i></a></li>
+                        <li class="list-inline-item"><a href="#" class="p-2"><i class="fa fa-twitter"></i></a></li>
+                        <li class="list-inline-item"><a href="#" class="p-2"><i class="fa fa-linkedin"></i></a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col text-center">
+                    <p class="pb_font-14">&copy; 2019. All Rights Reserved. <br>
+                        Python As A LifeStyle
+                    </p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- loader -->
+    <div id="pb_loader" class="show fullscreen"><svg class="circular" width="48px" height="48px">
+            <circle class="path-bg" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke="#eeeeee" />
+            <circle class="path" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke-miterlimit="10"
+                stroke="#1d82ff" /></svg></div>
+
+
+    <script src="{% static 'assets/js/jquery-3.4.1.js' %}"></script>
+    <script src="{% static 'assets/js/jquery.mb.YTPlayer.min.js' %}"></script>
+
+    <script src="{% static 'assets/js/jquery.waypoints.min.js' %}"></script>
+    <script src="{% static 'assets/js/jquery.easing.1.3.js' %}"></script>
+    <script src="{% static 'assets/js/popper.min.js' %}"></script>
+    <script src="{% static 'assets/js/bootstrap.min.js' %}"></script>
+    <script src="{% static 'assets/js/slick.min.js' %}"></script>
+    <script src="{% static 'assets/js/moment.js' %}"></script>
+    <script src="{% static 'assets/js/tempusdominus-bootstrap-4.min.js' %}"></script>
+
+    <script src="{% static 'assets/js/main.js' %}"></script>
+
+</body>
+
+</html>

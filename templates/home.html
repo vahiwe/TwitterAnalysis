@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+{% block title %}
+User Check
+{% endblock %}
+
+{% block content %}
+<form method="post" class="bg-white rounded pb_form_v1">
+    {% csrf_token %}
+    <h2 class="mb-4 mt-0 text-center">Check Username</h2>
+    <div class="form-group">
+        <input type="text" class="form-control pb_height-50 reverse" id="id_handle" name="handle"
+            placeholder="Twitter Handle">
+    </div>
+    <div class="form-group">
+        <input type="submit" class="btn btn-primary btn-lg btn-block pb_btn-pill  btn-shadow-blue" value="Check">
+    </div>
+    <p class="mb-4 mt-0 text-center">{{ report }}</p>
+</form>
+{% endblock content %}
