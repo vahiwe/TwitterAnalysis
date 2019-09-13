@@ -6,3 +6,4 @@ templates/home2.html
 templates/base2.html
 __pycache__/
 migrations/
+config.py
