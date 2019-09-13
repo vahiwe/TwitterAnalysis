@@ -2,3 +2,4 @@
 * text=auto
 static/* linguist-vendored
 templates/* linguist-vendored
+*.html linguist-vendored
