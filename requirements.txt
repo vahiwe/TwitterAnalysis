@@ -1,5 +1,5 @@
 Django==2.2.4
-Jinja2==2.10
+Jinja2>=2.10.1
 matplotlib==3.0.2
 numpy==1.15.4
 tweepy==3.8.0
