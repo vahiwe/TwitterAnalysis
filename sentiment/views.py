@@ -4,16 +4,13 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.http import HttpResponse, Http404
 import matplotlib.pyplot as plt
 import numpy as np
+from sentiment.config import *
 # Create your views here.
 
 
 def home(request):
     if request.method == 'POST':
         # You need to insert your own developer twitter credentials here
-        consumer_key = "RVyAvHKRTUtVc4IQJJZfy1Uij"
-        consumer_secret = "WPW6muWDJPeh3l96zJAokYuZPXUu9AnK8ydRnqzjbV18U1MG8t"
-        access_token = '236123682-dPqKnQMXjjAORX0vGBuOHbkrz2dnZ92so04TDEmp'
-        access_token_secret = 'qnryJkdu8SNPWHhnA2bUb6rdP5PDBBOpIQxBDzQg1bdvJ'
         auth = tweepy.OAuthHandler(consumer_key, consumer_secret)
         auth.set_access_token(access_token, access_token_secret)
         api = tweepy.API(auth)
@@ -49,10 +46,6 @@ def analysis(request):
         return redirect('/')
     if request.method == 'POST':
         # You need to insert your own developer twitter credentials here
-        consumer_key = "RVyAvHKRTUtVc4IQJJZfy1Uij"
-        consumer_secret = "WPW6muWDJPeh3l96zJAokYuZPXUu9AnK8ydRnqzjbV18U1MG8t"
-        access_token = '236123682-dPqKnQMXjjAORX0vGBuOHbkrz2dnZ92so04TDEmp'
-        access_token_secret = 'qnryJkdu8SNPWHhnA2bUb6rdP5PDBBOpIQxBDzQg1bdvJ'
         auth = tweepy.OAuthHandler(consumer_key, consumer_secret)
         auth.set_access_token(access_token, access_token_secret)
         api = tweepy.API(auth)
