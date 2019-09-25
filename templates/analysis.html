@@ -46,13 +46,18 @@ Analysis
     <script type="text/javascript">
         $(document).ready(function () {
             $('#datetimepicker7').datetimepicker({
+                useCurrent: false,
                 format: 'DD-MM-YYYY',
-                locale: 'ru'
+                locale: 'ru',
+                minDate: (Date.now() - 7 * 24 * 3600 * 1000),
+                maxDate: Date.now()
             });
             $('#datetimepicker8').datetimepicker({
                 useCurrent: false,
                 format: 'DD-MM-YYYY',
-                locale: 'ru'
+                locale: 'ru',
+                minDate: (Date.now() - 6 * 24 * 3600 * 1000),
+                maxDate: (Date.now() + 24 * 3600 * 1000),
             });
             $("#datetimepicker7").on("change.datetimepicker", function (e) {
                 $('#datetimepicker8').datetimepicker('minDate', e.date);
