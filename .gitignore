@@ -7,3 +7,5 @@ templates/base2.html
 __pycache__/
 migrations/
 config.py
+static/test.png
+feedback.txt
