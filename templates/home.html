@@ -5,7 +5,7 @@ Home
 {% endblock %}
 
 {% block content %}
-<form method="post" class="bg-white rounded pb_form_v1">
+<form method="post" class="bg-white rounded pb_form_v1" onsubmit="return checkForm(this);">
     {% csrf_token %}
     <h2 class="mb-4 mt-0 text-center">Check Username</h2>
     <div class="form-group">
@@ -13,8 +13,16 @@ Home
             placeholder="Twitter Handle" required>
     </div>
     <div class="form-group">
-        <input type="submit" class="btn btn-primary btn-lg btn-block pb_btn-pill  btn-shadow-blue" value="Check">
+        <input type="submit" class="btn btn-primary btn-lg btn-block pb_btn-pill  btn-shadow-blue" name="check"
+            value="Check">
     </div>
     <p class="mb-4 mt-0 text-center">{{ report }}</p>
 </form>
+<script type="text/javascript">
+    function checkForm(form) {
+        form.check.disabled = true;
+        form.check.value = "Please wait...";
+        return true;
+    }
+</script>
 {% endblock content %}

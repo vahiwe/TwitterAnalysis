@@ -10,7 +10,7 @@ Analysis
 
 {% block content %}
 <script src="{% static 'assets/js/jquery-3.4.1.js' %}"></script>
-<form method="post" class="bg-white rounded pb_form_v1">
+<form method="post" class="bg-white rounded pb_form_v1" id="analyzeform">
     {% csrf_token %}
     <h2 class="mb-4 mt-0 text-center">Analyze Tweets</h2>
     <div class="form-group">
@@ -69,8 +69,25 @@ Analysis
     </script>
     {% if graphs == False %}
     <div class="form-group">
-        <input type="submit" name="analyze" class="btn btn-primary btn-lg btn-block pb_btn-pill  btn-shadow-blue"
-            value="Analyze">
+        <input type="submit" id="analyzebutton" name="analyze"
+            class="btn btn-primary btn-lg btn-block pb_btn-pill  btn-shadow-blue" value="Analyze">
+        <input disabled type="submit" id="analyzebutton2"
+            class="btn btn-primary btn-lg btn-block pb_btn-pill btn-shadow-blue" style="display: none"
+            value="Please wait.....">
+        <script type="text/javascript">
+            $(document).ready(function () {
+                $("#analyzeform").submit(function (e) {
+
+                    //stop submitting the form to see the disabled button effect
+                    //e.preventDefault();
+
+                    $("#analyzebutton").hide();
+                    $("#analyzebutton2").show();
+                    return true;
+
+                });
+            });
+        </script>
     </div>
     {% endif %}
 </form>
@@ -89,14 +106,32 @@ Analysis
     </div>
     <div class="container">
         <div class="mb-4" style="margin-top: 50px;">
-            <form method="post" class="bg-white rounded pb_form_v1">
+            <form method="post" class="bg-white rounded pb_form_v1" id="feedbackform">
                 {% csrf_token %}
                 <div class="form-group">
                     <label for="id_message">Message</label>
-                    <textarea class="form-control" id="id_message" name="message" rows="5" required></textarea>
+                    <textarea class="form-control" id="id_message" name="message" placeholder="Feedback" rows="5"
+                        required></textarea>
                 </div>
-                <input type="submit" name="feedback"
+                <input type="submit" name="feedback" id="feedbackbutton"
                     class="btn btn-primary btn-lg btn-block pb_btn-pill  btn-shadow-blue" value="Feedback">
+                <input disabled type="submit" id="feedbackbutton2"
+                    class="btn btn-primary btn-lg btn-block pb_btn-pill btn-shadow-blue" style="display: none"
+                    value="Please wait.....">
+                <script type="text/javascript">
+                    $(document).ready(function () {
+                        $("#feedbackform").submit(function (e) {
+
+                            //stop submitting the form to see the disabled button effect
+                            //e.preventDefault();
+
+                            $("#feedbackbutton").hide();
+                            $("#feedbackbutton2").show();
+                            return true;
+
+                        });
+                    });
+                </script>
             </form>
         </div>
     </div>
