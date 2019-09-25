@@ -33,11 +33,7 @@ def home(request):
             return redirect('analysis/')
         else:
             return render(request, 'home.html', {'report': report})
-
-    report = request.session.get('report')
-    if report == None:
-        return render(request, 'home.html', {})
-    return render(request, 'home.html', {'report': report})
+    return render(request, 'home.html', {'report': ''})
 
 
 def analysis(request):
@@ -45,47 +41,51 @@ def analysis(request):
     if previous_url == None:
         return redirect('/')
     if request.method == 'POST':
-        # You need to insert your own developer twitter credentials here
-        auth = tweepy.OAuthHandler(consumer_key, consumer_secret)
-        auth.set_access_token(access_token, access_token_secret)
-        api = tweepy.API(auth)
+        if 'analyze' in request.POST:
+            # You need to insert your own developer twitter credentials here
+            auth = tweepy.OAuthHandler(consumer_key, consumer_secret)
+            auth.set_access_token(access_token, access_token_secret)
+            api = tweepy.API(auth)
 
-        handle = request.POST['handle']
-        handle = str(handle)
+            handle = request.POST['handle']
+            handle = str(handle)
 
-        if len(handle) == 0:
-            report = "Please input a username"
-            user = ''
-            return render(request, 'analysis.html', {'report': report, 'user': user})
-        else:
             try:
                 api.user_timeline(id=handle)
                 report = "This username is available on Twitter"
             except tweepy.error.TweepError:
                 report = "This username is not on Twitter"
 
-        if report == "This username is not on Twitter":
-            request.session['report'] = report
+            if report == "This username is not on Twitter":
+                return redirect('/')
+
+            start = request.POST['start']
+            start = str(start)
+            end = request.POST['end']
+            end = str(end)
+            timee = start + ' - ' + end
+
+            t = np.arange(0.0, 2.0, 0.01)
+
+            s = 1 + np.sin(2*np.pi*t)
+            plt.plot(t, s)
+
+            plt.xlabel('time (s)')
+            plt.ylabel('voltage (mV)')
+            plt.title('About as simple as it gets, folks')
+            plt.grid(True)
+            plt.savefig("static/test.png")
+            filepath = "../static/test.png"
+            graphs = True
+            return render(request, 'analysis.html', {'path': filepath, 'user': handle, 'graphs': graphs, 'start': start, 'end': end})
+        elif 'feedback' in request.POST:
+            message = request.POST['message']
+            message = str(message)
+            feedback = open("static/feedback.txt", "a+")
+            feedback.write(message+"\n\n")
+            feedback.close()
             return redirect('/')
 
-        start = request.POST['start']
-        start = str(start)
-        end = request.POST['end']
-        end = str(end)
-        timee = start + ' - ' + end
-        user = ''
-
-        t = np.arange(0.0, 2.0, 0.01)
-
-        s = 1 + np.sin(2*np.pi*t)
-        plt.plot(t, s)
-
-        plt.xlabel('time (s)')
-        plt.ylabel('voltage (mV)')
-        plt.title('About as simple as it gets, folks')
-        plt.grid(True)
-        plt.savefig("static/test.png")
-        filepath = "../static/test.png"
-        return render(request, 'analysis.html', {'timee': timee, 'path': filepath, 'user': handle})
+    graphs = False
     user = request.session.get('user')
-    return render(request, 'analysis.html', {'report': '', 'user': user})
+    return render(request, 'analysis.html', {'report': '', 'user': user, 'graphs': graphs, 'start': '', 'end': ''})
