@@ -15,12 +15,17 @@ Feedback
 <section class="pb_section bg-primary pb_slant-white pb_pb-250" id="section-features">
     <div class="container">
         <script src="{% static 'assets/js/jquery-3.4.1.js' %}"></script>
+        <p class="mb-4 mt-0 text-center"
+            style="font-size:25px;font-weight:bold; margin-bottom: 0.5em;font-style: italic;">Your most
+            retweeted tweet: "{{ high_retweet }}"</p>
+        <p class="mb-4 mt-0 text-center"
+            style="font-size:25px;font-weight:bold; margin-bottom: 0.5em;font-style: italic;">Your most liked
+            tweet:
+            "{{ high_like }}"</p>
         <div class="row mb-10">
             <img src="{{ dailygraph }}" style="float: left; width: 48%; margin-right: 1%; margin-bottom: 0.5em;">
             <img src="{{ piechart }}" style="float: left; width: 48%; margin-right: 1%; margin-bottom: 0.5em;">
         </div>
-    </div>
-    <div class="container">
         <div class="mb-4" style="margin-top: 50px;">
             <form method="post" class="bg-white rounded pb_form_v1" id="feedbackform">
                 {% csrf_token %}
