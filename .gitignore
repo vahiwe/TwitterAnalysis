@@ -9,3 +9,6 @@ migrations/
 config.py
 static/test.png
 feedback.txt
+*egg-info/
+static/daygraph.png
+static/piechart.png
