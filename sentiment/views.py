@@ -20,7 +20,7 @@ from spacy.lang.en.stop_words import STOP_WORDS
 from django.shortcuts import render, get_object_or_404, redirect
 from sklearn.feature_extraction.text import CountVectorizer, TfidfVectorizer
 # Use seaborn style defaults and set the default figure size
-sns.set(rc={'figure.figsize': (11, 8)})
+sns.set(rc={})
 # Create your views here.
 
 
@@ -35,14 +35,11 @@ def home(request):
         handle = str(handle)
         request.session['user'] = handle
 
-        if len(handle) == 0:
-            report = "Please input a username"
-        else:
-            try:
-                api.user_timeline(id=handle)
-                report = "This username is available on Twitter"
-            except tweepy.error.TweepError:
-                report = "This username is not on Twitter"
+        try:
+            api.user_timeline(id=handle, count=1)
+            report = "This username is available on Twitter"
+        except tweepy.error.TweepError:
+            report = "This username is not on Twitter"
 
         if report == "This username is available on Twitter":
             request.session['user'] = handle
@@ -70,6 +67,15 @@ def analysis(request):
         end = str(end)
         date_since_obj = datetime.datetime.strptime(start, '%Y-%m-%d')
         date_after_obj = datetime.datetime.strptime(end, '%Y-%m-%d')
+
+        try:
+            api.user_timeline(id=handle, count=1)
+            report = "This username is available on Twitter"
+        except tweepy.error.TweepError:
+            report = "This username is not on Twitter"
+
+        if report == "This username is not on Twitter":
+            return render(request, 'analysis.html', {'report': report, 'user': handle})
 
         tweets = tweepy.Cursor(api.user_timeline, id=handle, lang='en',
                                tweet_mode='extended', since='', until='').items(200)
@@ -106,6 +112,12 @@ def analysis(request):
         df['dates'] = pd.to_datetime(df['dates'], format='%Y-%m-%d')
         df.set_index(['dates'], inplace=True)
         df.sort_index(inplace=True)
+
+        # check if dataframe is empty
+        if df.empty:
+            report = "Sorry you don't have any tweets within this period"
+            return render(request, 'analysis.html', {'report': report, 'user': handle})
+
         # remove twitter handles (@user)
         df['tidy_tweet'] = np.vectorize(remove_pattern)(df['tweets'], "@[\w]*")
         # remove url patterns
@@ -175,7 +187,7 @@ def analysis(request):
         request.session['highlikes'] = high_like
         return redirect('/feedback')
     user = request.session.get('user')
-    return render(request, 'analysis.html', {'report': '', 'user': user, 'start': '', 'end': ''})
+    return render(request, 'analysis.html', {'report': '', 'user': user, })
 
 
 def feedback(request):
