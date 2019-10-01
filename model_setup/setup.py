@@ -7,5 +7,16 @@ setup(
     author='Ahiwe Onyebuchi Valentine',
     author_email='vahiwe@gmail.com',
     packages=find_packages(
-        include=['model_setup', 'model_setup.*'])  # same as name
+        include=['model_setup', 'model_setup.*']),  # same as name
+    install_requires=[
+        'Django == 2.2.4',
+        'Jinja2 >= 2.10.1',
+        'matplotlib == 3.0.2',
+        'pandas == 0.23.4',
+        'numpy == 1.15.4',
+        'tweepy == 3.8.0',
+        'spacy == 2.1.8',
+        'nltk == 3.4',
+        'scikit-learn == 0.20.2'
+    ]
 )
