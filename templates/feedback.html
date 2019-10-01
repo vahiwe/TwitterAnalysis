@@ -2,7 +2,7 @@
 
 {% load static %}
 {% block title %}
-Analysis
+Feedback
 {% endblock %}
 
 {% block styles %}
@@ -16,10 +16,8 @@ Analysis
     <div class="container">
         <script src="{% static 'assets/js/jquery-3.4.1.js' %}"></script>
         <div class="row mb-10">
-            <img src="{{ path }}" style="float: left; width: 30%; margin-right: 1%; margin-bottom: 0.5em;">
-            <img src="{{ path }}" style="float: left; width: 30%; margin-right: 1%; margin-bottom: 0.5em;">
-            <img src="{{ path }}" style="float: left; width: 30%; margin-right: 1%; margin-bottom: 0.5em;">
-            <img src="{{ path }}" style="float: left; width: 30%; margin-right: 1%; margin-bottom: 0.5em;">
+            <img src="{{ dailygraph }}" style="float: left; width: 48%; margin-right: 1%; margin-bottom: 0.5em;">
+            <img src="{{ piechart }}" style="float: left; width: 48%; margin-right: 1%; margin-bottom: 0.5em;">
         </div>
     </div>
     <div class="container">
@@ -39,14 +37,10 @@ Analysis
                 <script type="text/javascript">
                     $(document).ready(function () {
                         $("#feedbackform").submit(function (e) {
-
                             //stop submitting the form to see the disabled button effect
-                            //e.preventDefault();
-
                             $("#feedbackbutton").hide();
                             $("#feedbackbutton2").show();
                             return true;
-
                         });
                     });
                 </script>
