@@ -65,16 +65,11 @@ def analysis(request):
         start = str(start)
         end = request.POST['end']
         end = str(end)
-        date_since_obj = datetime.datetime.strptime(start, '%Y-%m-%d')
-        date_after_obj = datetime.datetime.strptime(end, '%Y-%m-%d')
-
         try:
-            api.user_timeline(id=handle, count=1)
-            report = "This username is available on Twitter"
-        except tweepy.error.TweepError:
-            report = "This username is not on Twitter"
-
-        if report == "This username is not on Twitter":
+            date_since_obj = datetime.datetime.strptime(start, '%Y-%m-%d')
+            date_after_obj = datetime.datetime.strptime(end, '%Y-%m-%d')
+        except ValueError:
+            report = "Please input duration"
             return render(request, 'analysis.html', {'report': report, 'user': handle})
 
         tweets = tweepy.Cursor(api.user_timeline, id=handle, lang='en',

@@ -20,7 +20,7 @@ Analysis
                     <h2 class="mb-4 mt-0 text-center">Analyze Tweets</h2>
                     <div class="form-group">
                         <input type="text" class="form-control pb_height-50 reverse" id="id_handle" name="handle"
-                            placeholder="Twitter Handle" value="{{ user }}" required>
+                            placeholder="Twitter Handle" value="{{ user }}" readonly required>
                     </div>
                     <p class="mb-4 mt-0 text-center" style="font-size:25px;font-weight:bold">{{ report }}</p>
                     <strong>Duration</strong>
@@ -29,7 +29,7 @@ Analysis
                             <div class="form-group">
                                 <div class="input-group date" id="datetimepicker7" data-target-input="nearest">
                                     <input type="text" class="form-control datetimepicker-input"
-                                        data-target="#datetimepicker7" name="start" placeholder="Start Date" required />
+                                        data-target="#datetimepicker7" name="start" placeholder="Start Date" readonly />
                                     <div class="input-group-append" data-target="#datetimepicker7"
                                         data-toggle="datetimepicker">
                                         <div class="input-group-text"><i class="fa fa-calendar"></i></div>
@@ -41,7 +41,7 @@ Analysis
                             <div class="form-group">
                                 <div class="input-group date" id="datetimepicker8" data-target-input="nearest">
                                     <input type="text" class="form-control datetimepicker-input"
-                                        data-target="#datetimepicker8" name="end" placeholder="End Date" required />
+                                        data-target="#datetimepicker8" name="end" placeholder="End Date" readonly />
                                     <div class="input-group-append" data-target="#datetimepicker8"
                                         data-toggle="datetimepicker">
                                         <div class="input-group-text"><i class="fa fa-calendar"></i></div>
@@ -54,6 +54,7 @@ Analysis
                         $(document).ready(function () {
                             $('#datetimepicker7').datetimepicker({
                                 useCurrent: false,
+                                ignoreReadonly: true,
                                 format: 'YYYY-MM-DD',
                                 locale: 'ru',
                                 minDate: (Date.now() - 7 * 24 * 3600 * 1000),
@@ -61,6 +62,7 @@ Analysis
                             });
                             $('#datetimepicker8').datetimepicker({
                                 useCurrent: false,
+                                ignoreReadonly: true,
                                 format: 'YYYY-MM-DD',
                                 locale: 'ru',
                                 minDate: (Date.now() - 6 * 24 * 3600 * 1000),
