@@ -17,6 +17,7 @@ setup(
         'tweepy == 3.8.0',
         'spacy == 2.1.8',
         'nltk == 3.4',
-        'scikit-learn == 0.20.2'
+        'scikit-learn == 0.20.2',
+        'seaborn == 0.9.0'
     ]
 )
