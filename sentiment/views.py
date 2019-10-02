@@ -4,6 +4,7 @@ import nltk
 import spacy
 import string
 import tweepy
+import random
 import datetime
 import numpy as np
 import pandas as pd
@@ -151,10 +152,28 @@ def analysis(request):
         moodto = dict(zip(labels, sizes))
         moodsort = sorted(moodto.items(), key=lambda x: x[1], reverse=True)
 
+        negative_response = ["Don't be too negative, Add some positivity to your tweets.", "Dilute your tweets with some positivity.", "Once you replace negative thoughts with positive ones, you’ll start having positive results.",
+                             "Positive thinking will let you do everything better than negative thinking will.", "Being negative is like sliding down a hill. Being positive is like going up a mountain."]
+        positive_response = ["Positivity is great. Positive emotions enhance your life.", "In every day, there are 1,440 minutes. That means we have 1,440 daily opportunities to make a positive impact. Keep being positive",
+                             "Positive things happen to positive people.", "All You can control is yourself and just keep having a positive attitude.", "Your positive action combined with positive thinking results in success."]
+        neutral_response = ["Neutral is good, But you might want to add some emotion to your tweets.", "Looks like you don't like picking sides",
+                            "You keep your emotions in check.", "Looks like you have everything balanced", "You're keeping a well balanced life."]
+
+        random.seed(a=None)
+        picked = random.randint(0, 4)
+        if moodsort[0][0] == "positive":
+            response = positive_response[picked]
+        elif moodsort[0][0] == "negative":
+            response = negative_response[picked]
+        elif moodsort[0][0] == "neutral":
+            response = neutral_response[picked]
+
         # Piechart
         fig1, ax1 = plt.subplots()
         ax1.pie(sizes, labels=labels, autopct='%1.1f%%', shadow=False)
         ax1.axis('equal')
+        plt.title('Moods Composition from ' + date_since_obj.strftime("%A, %d %b %Y") +
+                  "\n to " + date_after_obj.strftime("%A, %d %b %Y"))
         plt.savefig('static/piechart.png', bbox_inches='tight')
 
         # Specify the data columns we want to include
@@ -180,6 +199,7 @@ def analysis(request):
         request.session['daily'] = "../static/daygraph.png"
         request.session['highretweets'] = high_retweet
         request.session['highlikes'] = high_like
+        request.session['response'] = response
         return redirect('/feedback')
     user = request.session.get('user')
     return render(request, 'analysis.html', {'report': '', 'user': user, })
@@ -200,7 +220,8 @@ def feedback(request):
     dailygraph = request.session.get('daily')
     high_retweet = request.session.get('highretweets')
     high_like = request.session.get('highlikes')
-    return render(request, 'feedback.html', {'piechart': piechart, 'dailygraph': dailygraph, 'high_retweet': high_retweet, 'high_like': high_like})
+    response = request.session.get('response')
+    return render(request, 'feedback.html', {'piechart': piechart, 'dailygraph': dailygraph, 'high_retweet': high_retweet, 'high_like': high_like, 'response': response})
 
 
 def remove_pattern(input_txt, pattern):
