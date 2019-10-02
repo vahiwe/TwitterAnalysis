@@ -9,15 +9,20 @@ ENV PYTHONUNBUFFERED 1
 # create root directory for our project in the container
 RUN mkdir /TwitterAnalysis
 
-# Copy the current directory contents into the container at /music_service
+# Copy the current directory contents into the container at /TwitterAnalysis
 ADD . /TwitterAnalysis/
 
-# Set the working directory to /music_service
+# Set the working directory to /TwitterAnalysis/model_setup
+WORKDIR /TwitterAnalysis/model_setup
+
+# Install any needed packages specified in setup.py
+RUN pip install -e .
+
+# Set the working directory to /TwitterAnalysis/model_setup
 WORKDIR /TwitterAnalysis
 
-
-# Install any needed packages specified in requirements.txt
-RUN pip install -r requirements.txt
+# Install spacy language model
+RUN python -m spacy download en
 
 EXPOSE 8000
 ENTRYPOINT ["python", "manage.py"]
