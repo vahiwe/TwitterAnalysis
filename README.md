@@ -18,19 +18,23 @@ __`❍ pip install -e . `__
 
 __`❍ cd .. `__
 
-**5)** Run to create migrations for changes:
+**5)** Install spacy language model:
+
+__`❍ python -m spacy download en `__
+
+**6)** Run to create migrations for changes:
 
 __`❍ python manage.py makemigrations`__
 
-**6)** Run to apply those changes to the database:
+**7)** Run to apply those changes to the database:
 
 __`❍ python manage.py migrate`__
 
-**7)** Start the server to view the webapp:
+**8)** Start the server to view the webapp:
 
 __`❍ python manage.py runserver `__
 
-**8)** Open your browser and type in this URL to view the webapp:
+**9)** Open your browser and type in this URL to view the webapp:
 
 __`❍ http://127.0.0.1:8000/`__
 
