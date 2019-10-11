@@ -18,11 +18,11 @@ __`❍ pip install -e . `__
 
 __`❍ cd .. `__
 
-**5)** Generate secret key for Django project [here](https://miniwebtool.com/django-secret-key-generator/) and input in TwitterAnalysis/config.py:
+**5)** Generate secret key for Django project [here](https://miniwebtool.com/django-secret-key-generator/) and input in `TwitterAnalysis/config.py` :
 
 __`❍ KEY = 'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx' `__
 
-**6)** Get your [Twitter Developer](https://developer.twitter.com/) credentials and input in sentiment/config.py:
+**6)** Get your [Twitter Developer](https://developer.twitter.com/) credentials and input in `sentiment/config.py` :
 
 __`❍ consumer_key = 'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx' `__
 
