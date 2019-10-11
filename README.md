@@ -18,6 +18,20 @@ __`❍ pip install -e . `__
 
 __`❍ cd .. `__
 
+**4)** Generate secret key for Django project [here](https://miniwebtool.com/django-secret-key-generator/) and input in TwitterAnalysis/config.py:
+
+__`❍ KEY = 'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx' `__
+
+**4)** Get your [Twitter Developer](https://developer.twitter.com/) credentials and input in sentiment/config.py:
+
+__`❍ consumer_key = 'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx' `__
+
+__`❍ consumer_secret = 'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx' `__
+
+__`❍ access_token = 'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx' `__
+
+__`❍ access_token_secret = 'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx' `__
+
 **5)** Install spacy language model:
 
 __`❍ python -m spacy download en `__
