@@ -18,11 +18,11 @@ __`❍ pip install -e . `__
 
 __`❍ cd .. `__
 
-**4)** Generate secret key for Django project [here](https://miniwebtool.com/django-secret-key-generator/) and input in TwitterAnalysis/config.py:
+**5)** Generate secret key for Django project [here](https://miniwebtool.com/django-secret-key-generator/) and input in TwitterAnalysis/config.py:
 
 __`❍ KEY = 'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx' `__
 
-**4)** Get your [Twitter Developer](https://developer.twitter.com/) credentials and input in sentiment/config.py:
+**6)** Get your [Twitter Developer](https://developer.twitter.com/) credentials and input in sentiment/config.py:
 
 __`❍ consumer_key = 'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx' `__
 
@@ -32,23 +32,23 @@ __`❍ access_token = 'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx' `__
 
 __`❍ access_token_secret = 'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx' `__
 
-**5)** Install spacy language model:
+**7)** Install spacy language model:
 
 __`❍ python -m spacy download en `__
 
-**6)** Run to create migrations for changes:
+**8)** Run to create migrations for changes:
 
 __`❍ python manage.py makemigrations`__
 
-**7)** Run to apply those changes to the database:
+**9)** Run to apply those changes to the database:
 
 __`❍ python manage.py migrate`__
 
-**8)** Start the server to view the webapp:
+**10)** Start the server to view the webapp:
 
 __`❍ python manage.py runserver `__
 
-**9)** Open your browser and type in this URL to view the webapp:
+**11)** Open your browser and type in this URL to view the webapp:
 
 __`❍ http://127.0.0.1:8000/`__
 
