@@ -114,6 +114,11 @@ def analysis(request):
             report = "Sorry you don't have any tweets within this period"
             return render(request, 'analysis.html', {'report': report, 'user': handle})
 
+        # check if number of tweets are up to 10
+        if df.shape[0] < 11:
+            report = "Sorry you don't have enough tweets within this period"
+            return render(request, 'analysis.html', {'report': report, 'user': handle})
+
         # remove twitter handles (@user)
         df['tidy_tweet'] = np.vectorize(remove_pattern)(df['tweets'], "@[\w]*")
         # remove url patterns
