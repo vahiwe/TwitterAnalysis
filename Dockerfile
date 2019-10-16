@@ -24,6 +24,13 @@ WORKDIR /TwitterAnalysis
 # Install spacy language model
 RUN python -m spacy download en
 
+# expose the port 8000
 EXPOSE 8000
-ENTRYPOINT ["python", "manage.py"]
-CMD ["runserver", "0.0.0.0:8000"]
+
+# define the default command to run when starting the container using Django
+# Uncomment the next two lines to use django to render app and comment gunicorn command
+# ENTRYPOINT ["python", "manage.py"]
+# CMD ["runserver", "0.0.0.0:8000"]
+
+# define the default command to run when starting the container using gunicorn
+CMD ["gunicorn", "--bind", ":8000", "TwitterAnalysis.wsgi:application"]

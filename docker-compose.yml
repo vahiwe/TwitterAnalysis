@@ -1,6 +1,34 @@
 version: '3'
+
 services:
-  web:
+  djangoapp:
     build: .
+    volumes:
+      - .:/TwitterAnalysis
+      - static_volume:/TwitterAnalysis/static  # <-- bind the static volume
+      - media_volume:/TwitterAnalysis/media  # <-- bind the media volume
+    networks:  # <-- here
+      - nginx_network
+    # ports:        No need for port
+    #   - 8000:8000 Since we'll be using nginx to manage requests
+
+  nginx:
+    image: nginx:1.13
     ports:
-      - "8000:8000"
+      - 8000:80
+    volumes:
+      - ./TwitterAnalysis/config/nginx/conf.d:/etc/nginx/conf.d
+      - static_volume:/TwitterAnalysis/static  # <-- bind the static volume
+      - media_volume:/TwitterAnalysis/media  # <-- bind the media volume
+    depends_on:  # <-- wait for djangoapp to be "ready" before starting this service
+      - djangoapp
+    networks:  # <-- here
+      - nginx_network
+
+networks:  # <-- and here
+  nginx_network:
+    driver: bridge
+
+volumes:
+  static_volume:  # <-- declare the static volume
+  media_volume:  # <-- declare the media volume
