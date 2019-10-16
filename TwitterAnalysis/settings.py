@@ -121,3 +121,9 @@ USE_TZ = True
 STATIC_URL = '/static/'
 
 STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
+
+# as declared in NginX conf, it must match /TwitterAnalysis/static/
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+
+# do the same for media files, it must match /TwitterAnalysis/media/
+MEDIA_ROOT = os.path.join(BASE_DIR, 'static')
