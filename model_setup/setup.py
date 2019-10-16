@@ -18,6 +18,7 @@ setup(
         'spacy == 2.1.8',
         'nltk>=3.4.5',
         'scikit-learn == 0.20.2',
-        'seaborn == 0.9.0'
+        'seaborn == 0.9.0',
+        'gunicorn == 19.9.0'
     ]
 )
