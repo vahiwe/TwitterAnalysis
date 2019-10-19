@@ -6,7 +6,7 @@ services:
     volumes:
       - .:/TwitterAnalysis
       - static_volume:/TwitterAnalysis/static  # <-- bind the static volume
-      - media_volume:/TwitterAnalysis/media  # <-- bind the media volume
+      # - media_volume:/TwitterAnalysis/media  # <-- bind the media volume
     networks:  # <-- here
       - nginx_network
     # ports:        No need for port
@@ -19,7 +19,7 @@ services:
     volumes:
       - ./TwitterAnalysis/config/nginx/conf.d:/etc/nginx/conf.d
       - static_volume:/TwitterAnalysis/static  # <-- bind the static volume
-      - media_volume:/TwitterAnalysis/media  # <-- bind the media volume
+      # - media_volume:/TwitterAnalysis/media  # <-- bind the media volume
     depends_on:  # <-- wait for djangoapp to be "ready" before starting this service
       - djangoapp
     networks:  # <-- here
@@ -31,4 +31,4 @@ networks:  # <-- and here
 
 volumes:
   static_volume:  # <-- declare the static volume
-  media_volume:  # <-- declare the media volume
+  # media_volume:  # <-- declare the media volume
