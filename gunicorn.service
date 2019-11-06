@@ -1,0 +1,17 @@
+[Unit]
+Description=gunicorn daemon
+After=network.target
+
+[Service]
+PIDFile=/run/gunicorn/pid
+User=obiohakelvin96
+Group=obiohakelvin96
+RuntimeDirectory=gunicorn
+WorkingDirectory=/home/obiohakelvin96/TwitterAnalysis
+ExecStart=/home/obiohakelvin96/TwitterAnalysis/paal/bin/gunicorn --workers=2 -t 300 TwitterAnalysis.wsgi:application
+ExecReload=/bin/kill -s HUP $MAINPID
+ExecStop=/bin/kill -s TERM $MAINPID
+PrivateTmp=true
+
+[Install]
+WantedBy=multi-user.target
