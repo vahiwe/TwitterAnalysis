@@ -14,8 +14,9 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-# from django.contrib.staticfiles.urls import staticfiles_urlpatterns
+#from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 from django.urls import path
+from django.conf.urls import handler404, handler500
 
 from sentiment import views
 urlpatterns = [
@@ -25,4 +26,6 @@ urlpatterns = [
     path('feedback/', views.feedback, name='feedback')
 ]
 
-# urlpatterns += staticfiles_urlpatterns()
+#urlpatterns += staticfiles_urlpatterns()
+handler404 = 'sentiment.views.error_404_view'
+handler500 = 'sentiment.views.error_500_view'

@@ -23,7 +23,14 @@ from sklearn.feature_extraction.text import CountVectorizer, TfidfVectorizer
 # Use seaborn style defaults and set the default figure size
 sns.set(rc={})
 # Create your views here.
+sent = open('model_setup/model.pkl', 'rb')
+clf = joblib.load(sent)
 
+def error_404_view(request, exception):
+    return render(request, 'error_404.html')
+
+def error_500_view(request):
+    return render(request, 'error_500.html')
 
 def home(request):
     if request.method == 'POST':
@@ -35,6 +42,10 @@ def home(request):
         handle = request.POST['handle']
         handle = str(handle)
         request.session['user'] = handle
+
+        if '@' in handle:
+            report = "Sorry input your twitter handle without the '@' sign"
+            return render(request, 'home.html', {'report': report})
 
         try:
             api.user_timeline(id=handle, count=1)
@@ -51,21 +62,26 @@ def home(request):
 
 
 def analysis(request):
+    print(1)
     previous_url = request.META.get('HTTP_REFERER')
+    print(2)
     if previous_url == None:
+        print(3)
         return redirect('/')
     if request.method == 'POST':
+        print(4)
         # You need to insert your own developer twitter credentials here
         auth = tweepy.OAuthHandler(consumer_key, consumer_secret)
         auth.set_access_token(access_token, access_token_secret)
         api = tweepy.API(auth)
-
+        print(5)
         handle = request.POST['handle']
         handle = str(handle)
         start = request.POST['start']
         start = str(start)
         end = request.POST['end']
         end = str(end)
+        print(6)
         try:
             date_since_obj = datetime.datetime.strptime(start, '%Y-%m-%d')
             date_after_obj = datetime.datetime.strptime(end, '%Y-%m-%d')
@@ -76,6 +92,7 @@ def analysis(request):
         tweets = tweepy.Cursor(api.user_timeline, id=handle, lang='en',
                                tweet_mode='extended', since='', until='').items(200)
 
+        print(7)
         non_bmp_map = dict.fromkeys(range(0x10000, sys.maxunicode + 1), 0x0020)
         dates = []
         test = []
@@ -103,22 +120,26 @@ def analysis(request):
                 retweets.append(retweet)
                 dates.append(date)
 
+        print(8)
         df = pd.DataFrame(list(zip(test, dates, likes, retweets)), columns=[
                           "tweets", "dates", "likes", "retweets"])
         df['dates'] = pd.to_datetime(df['dates'], format='%Y-%m-%d')
         df.set_index(['dates'], inplace=True)
         df.sort_index(inplace=True)
 
+        print(9)
         # check if dataframe is empty
         if df.empty:
             report = "Sorry you don't have any tweets within this period"
             return render(request, 'analysis.html', {'report': report, 'user': handle})
 
+        print(10)
         # check if number of tweets are up to 10
         if df.shape[0] < 11:
             report = "Sorry you don't have enough tweets within this period"
             return render(request, 'analysis.html', {'report': report, 'user': handle})
 
+        print(11)
         # remove twitter handles (@user)
         df['tidy_tweet'] = np.vectorize(remove_pattern)(df['tweets'], "@[\w]*")
         # remove url patterns
@@ -135,28 +156,35 @@ def analysis(request):
         # remove rows with NaN in tidy tweet column
         df = df.dropna(subset=['tidy_tweet'])
 
+        print(12)
         # Load model
-        sent = open('model_setup/model.pkl', 'rb')
-        clf = joblib.load(sent)
+#        sent = open('model_setup/model.pkl', 'rb')
+        print(121)
+#        clf = joblib.load(sent)
 
+        print(13)
         # predict
         predicted = clf.predict(df['tidy_tweet'])
         df['mood'] = predicted
 
+        print(14)
         # this changes the labels of the prediction
         df['mood'] = df['mood'].map({4: 1, 0: -1, 2: 0})
 
+        print(15)
         neutral_percentage = (len(df[df['mood'] == 0]) / len(df['mood'])) * 100
         negative_percentage = (
             len(df[df['mood'] == -1]) / len(df['mood'])) * 100
         positive_percentage = (
             len(df[df['mood'] == 1]) / len(df['mood'])) * 100
 
+        print(16)
         labels = ['neutral', 'negative', 'positive']
         sizes = [neutral_percentage, negative_percentage, positive_percentage]
         moodto = dict(zip(labels, sizes))
         moodsort = sorted(moodto.items(), key=lambda x: x[1], reverse=True)
 
+        print(17)
         negative_response = ["Don't be too negative, Add some positivity to your tweets.", "Dilute your tweets with some positivity.", "Once you replace negative thoughts with positive ones, you’ll start having positive results.",
                              "Positive thinking will let you do everything better than negative thinking will.", "Being negative is like sliding down a hill. Being positive is like going up a mountain."]
         positive_response = ["Positivity is great. Positive emotions enhance your life.", "In every day, there are 1,440 minutes. That means we have 1,440 daily opportunities to make a positive impact. Keep being positive",
@@ -164,6 +192,7 @@ def analysis(request):
         neutral_response = ["Neutral is good, But you might want to add some emotion to your tweets.", "Looks like you don't like picking sides",
                             "You keep your emotions in check.", "Looks like you have everything balanced", "You're keeping a well balanced life."]
 
+        print(18)
         random.seed(a=None)
         picked = random.randint(0, 4)
         if moodsort[0][0] == "positive":
@@ -173,6 +202,7 @@ def analysis(request):
         elif moodsort[0][0] == "neutral":
             response = neutral_response[picked]
 
+        print(19)
         # Piechart
         fig1, ax1 = plt.subplots()
         ax1.pie(sizes, labels=labels, autopct='%1.1f%%', shadow=False)
@@ -181,6 +211,7 @@ def analysis(request):
                   "\n to " + date_after_obj.strftime("%A, %d %b %Y"))
         plt.savefig('static/piechart.png', bbox_inches='tight')
 
+        print(20)
         # Specify the data columns we want to include
         data_columns = ['mood']
         # Resample to daily frequency, aggregating with mean
@@ -205,6 +236,7 @@ def analysis(request):
         request.session['highretweets'] = high_retweet
         request.session['highlikes'] = high_like
         request.session['response'] = response
+        print("Done")
         return redirect('/feedback')
     user = request.session.get('user')
     return render(request, 'analysis.html', {'report': '', 'user': user, })
