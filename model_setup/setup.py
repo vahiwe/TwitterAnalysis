@@ -9,7 +9,7 @@ setup(
     packages=find_packages(
         include=['model_setup', 'model_setup.*']),  # same as name
     install_requires=[
-        'Django == 2.2.4',
+        'Django == 2.2.28',
         'Jinja2 >= 2.10.1',
         'matplotlib == 3.0.2',
         'pandas == 0.23.4',
