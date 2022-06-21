@@ -13,7 +13,7 @@ setup(
         'Jinja2 >= 2.10.1',
         'matplotlib == 3.0.2',
         'pandas == 0.23.4',
-        'numpy == 1.15.4',
+        'numpy == 1.22.0',
         'tweepy == 3.8.0',
         'spacy == 2.1.8',
         'nltk>=3.4.5',
